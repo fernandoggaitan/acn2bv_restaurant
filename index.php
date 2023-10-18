@@ -1,36 +1,11 @@
 <?php
 
-/*
-$productos = [
-    ['codigo' => 1, 'nombre' => 'Pizza con jamón y huevo', 'categoria' => 'Pizzas', 'precio' => 2000, 'descuento' => 0],
-    ['codigo' => 2, 'nombre' => 'Pizza napolitana', 'categoria' => 'Pizzas', 'precio' => 2500, 'descuento' => 0],
-    ['codigo' => 3, 'nombre' => 'Pizza caprese', 'categoria' => 'Pizzas', 'precio' => 2700, 'descuento' => 500],
-    ['codigo' => 4, 'nombre' => 'Ensalada caesar', 'categoria' => 'Ensaladas', 'precio' => 800, 'descuento' => 0],
-    ['codigo' => 5, 'nombre' => 'Ensalada rusa', 'categoria' => 'Ensaladas', 'precio' => 500, 'descuento' => 0],
-    ['codigo' => 6, 'nombre' => 'Hamburguesa simple', 'categoria' => 'Hamburguesas', 'precio' => 900, 'descuento' => 0],
-    ['codigo' => 7, 'nombre' => 'Hamburguesa completa', 'categoria' => 'Hamburguesas', 'precio' => 1700, 'descuento' => 400],
-    ['codigo' => 8, 'nombre' => 'Coca cola', 'categoria' => 'Bebidas', 'precio' => 300, 'descuento' => 0],
-    ['codigo' => 9, 'nombre' => 'Fanta', 'categoria' => 'Bebidas', 'precio' => 300, 'descuento' => 20],
-    ['codigo' => 10, 'nombre' => 'Agua mineral', 'categoria' => 'Bebidas', 'precio' => 150, 'descuento' => 0],
-    ['codigo' => 11, 'nombre' => 'Helado', 'categoria' => 'Postres', 'precio' => 550, 'descuento' => 50],
-    ['codigo' => 12, 'nombre' => 'Flan casero', 'categoria' => 'Postres', 'precio' => 400, 'descuento' => 0],
-];
-*/
-
 //Traigo la conexión a la base de datos.
 require_once('_conexion.php');
+require_once('consultas/consultas_productos.php');
 
-//Preparo la consulta.
-$consulta = $conexion->prepare('
-    SELECT nombre, precio, descuento, categoria
-    FROM productos
-');
+$productos = getProductos($conexion);
 
-//Ejecuto la consulta.
-$consulta->execute();
-
-//Recuperamos la lista.
-$productos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -61,10 +36,10 @@ $productos = $consulta->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <td>
                             <img src="img/iconos/<?php echo $item['categoria'] ?>.png" alt="<?php echo $item['categoria'] ?>" />
-                            <?php echo $item['categoria'] ?> 
+                            <?php echo $item['categoria'] ?>
                         </td>
                         <td> <?php echo $item['nombre'] ?> </td>
-                        <td>  
+                        <td>
                             <?php if($item['descuento'] > 0): ?>
                                 <span class="text-decoration-line-through"> $<?php echo $item['precio'] ?> </span>
                                 <span class="text text-success"> $<?php echo $item['precio'] - $item['descuento'] ?> </span>
