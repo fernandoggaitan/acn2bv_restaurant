@@ -1,10 +1,25 @@
 <?php
 
-//Traigo la conexión a la base de datos.
+require_once('conf/conf.php');
 require_once('_conexion.php');
 require_once('consultas/consultas_productos.php');
+require_once('funciones/funciones_paginador.php');
 
 $productos = getProductos($conexion);
+
+//Cantidad de productos en total.
+$cantidad = count($productos);
+
+//Página actual.
+$pagina_actual = $_GET['pag'] ?? 1;
+
+//Cuántos registros por página.
+$cuantos_por_pagina = 5;
+
+//Enlaces del paginado.
+$paginado_enlaces = paginador_enlaces($cantidad, $pagina_actual, $cuantos_por_pagina);
+
+$productos = paginador_lista($productos, $pagina_actual, $cuantos_por_pagina);
 
 
 ?>
@@ -13,49 +28,69 @@ $productos = getProductos($conexion);
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Menú </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <?php require('layout/_css.php') ?>
 </head>
 
 <body>
 
-    <div class="container">
+    <?php require('layout/_nav_cliente.php') ?>
+
+    <div class="container margin-top-nav-fixed">
         <h1 class="text text-center"> Menú </h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>                    
-                    <th> Categoría </th>
-                    <th> Nombre </th>
-                    <th> Precio </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($productos as $item): ?>
-                    <tr>
-                        <td>
-                            <img src="img/iconos/<?php echo $item['categoria'] ?>.png" alt="<?php echo $item['categoria'] ?>" />
-                            <?php echo $item['categoria'] ?>
-                        </td>
-                        <td> <?php echo $item['nombre'] ?> </td>
-                        <td>
-                            <?php if($item['descuento'] > 0): ?>
-                                <span class="text-decoration-line-through"> $<?php echo $item['precio'] ?> </span>
-                                <span class="text text-success"> $<?php echo $item['precio'] - $item['descuento'] ?> </span>
-                            <?php else: ?>
-                                $<?php echo $item['precio'] ?>
-                            <?php endif ?>
-                        </td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
+
+        <?php foreach ($productos as $item) : ?>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <img src="img/iconos/<?php echo $item['categoria'] ?>.png" alt="<?php echo $item['categoria'] ?>" />
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title"><?php echo $item['nombre'] ?></h2>
+                    <p class="card-text">
+                        Precio: 
+                        <?php if ($item['descuento'] > 0) : ?>
+                            <span class="text-decoration-line-through"> $<?php echo $item['precio'] ?> </span>
+                            <span class="text text-success"> $<?php echo $item['precio'] - $item['descuento'] ?> </span>
+                        <?php else : ?>
+                            $<?php echo $item['precio'] ?>
+                        <?php endif ?>
+                    </p>
+                </div>
+            </div>
+        <?php endforeach ?>
+        
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php if($paginado_enlaces['anterior']): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?pag=<?php echo $paginado_enlaces['primero'] ?>"> Primero </a>                        
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?pag=<?php echo $paginado_enlaces['anterior'] ?>"> <?php echo $paginado_enlaces['anterior'] ?> </a>
+                    </li>
+                <?php endif ?>
+                <li class="page-item active"> 
+                    <span class="page-link">
+                        <?php echo $paginado_enlaces['actual'] ?> 
+                    </span>
+                </li>
+                <?php if($paginado_enlaces['siguiente']): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?pag=<?php echo $paginado_enlaces['siguiente'] ?>"> <?php echo $paginado_enlaces['siguiente'] ?> </a>
+                    </li>
+                    <li class="page-item">
+                    <a class="page-link" href="?pag=<?php echo $paginado_enlaces['ultimo'] ?>"> Último </a>
+                    </li>
+                <?php endif ?>
+            </ul>
+        </nav>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
-    
+    <?php require('layout/_js.php') ?>
+
 </body>
 
 </html>

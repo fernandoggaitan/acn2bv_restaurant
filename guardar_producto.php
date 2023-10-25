@@ -1,5 +1,6 @@
 <?php
 
+require_once('conf/conf.php');
 require_once('_conexion.php');
 require_once('consultas/consultas_productos.php');
 require_once('funciones/funciones_input.php');
@@ -7,6 +8,11 @@ require_once('funciones/funciones_input.php');
 if( isset($_GET['id']) ){
     //El usuario está intentando editar un producto.
     $producto = getProductoById($conexion, $_GET['id']);
+
+    if(!$producto){
+        header('Location: listar_productos.php');
+    }
+
 }else{
     $producto = [
         'id' => test_input( $_POST['id'] ?? null ),
@@ -91,11 +97,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
                                 </div>
                                 <div class="mb-3">
                                     <label for="precio" class="form-label">Precio</label>
-                                    <input type="number" class="form-control" name="precio" id="precio" placeholder="Ingrese el precio del producto" value="<?php echo $producto['precio'] ?>">
+                                    <input type="number" class="form-control" name="precio" id="precio" placeholder="Ingrese el precio del producto" value="<?php echo $producto['precio'] ?>" step="any">
                                 </div>
                                 <div class="mb-3">
                                     <label for="descuento" class="form-label">Descuento</label>
-                                    <input type="number" class="form-control" name="descuento" id="descuento" placeholder="Ingrese el descuento del producto" value="<?php echo $producto['descuento'] ?>">
+                                    <input type="number" min="0" max="9000000" class="form-control" name="descuento" id="descuento" placeholder="Ingrese el descuento del producto" value="<?php echo $producto['descuento'] ?>">
                                 </div>
                                 <div class="mb-3">
                                     <label for="categoria" class="form-label">Categoría</label>
@@ -106,8 +112,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
                                     <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Ingrese la descripción del producto"><?php echo $producto['descripcion'] ?></textarea>
                                 </div>
                                 <input type="hidden" name="id" value="<?php echo $producto['id'] ?>" />
-                                <button type="submit" class="btn btn-success"> Guardar </button>
-                                <a href="listar_productos.php" class="btn btn-danger"> Cancelar </a>
+                                <button type="submit" class="btn btn-success"> 
+                                    <i class="fa-regular fa-floppy-disk"></i>
+                                    Guardar 
+                                </button>
+                                <a href="listar_productos.php" class="btn btn-danger"> 
+                                    <i class="fa-solid fa-trash"></i>
+                                    Cancelar 
+                                </a>
                             </form>
                         </div>
 

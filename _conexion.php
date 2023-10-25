@@ -2,9 +2,9 @@
 
 try{
     $conexion = new PDO(
-        'mysql:host=localhost;dbname=restaurant;charset=utf8',
-        'root',
-        ''
+        'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8',
+        DB_USER,
+        DB_PASSWORD
     );
 }catch(PDOException $e){
     //echo $e->getMessage();

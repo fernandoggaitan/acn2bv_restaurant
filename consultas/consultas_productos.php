@@ -87,4 +87,18 @@ function updateProducto(PDO $conexion, $producto)
 
 }
 
+function deleteProducto($conexion, $id)
+{
+
+    $consulta = $conexion->prepare('
+        DELETE FROM productos
+        WHERE id = :id
+    ');
+
+    $consulta->bindValue(':id', $id);
+
+    $consulta->execute();
+
+}
+
 ?>

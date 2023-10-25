@@ -1,6 +1,7 @@
 <?php
 
 //Traigo la conexión a la base de datos.
+require_once('conf/conf.php');
 require_once('_conexion.php');
 require_once('consultas/consultas_productos.php');
 
@@ -44,7 +45,10 @@ $productos = getProductos($conexion);
                         </div>
 
                         <div class="card-body">
-                            <a href="guardar_producto.php" class="btn btn-primary"> Agregar producto </a>
+                            <a href="guardar_producto.php" class="btn btn-primary"> 
+                                <i class="fa-solid fa-plus"></i>
+                                Agregar producto 
+                            </a>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -63,8 +67,14 @@ $productos = getProductos($conexion);
                                             <td> <?php echo $prod['descuento'] ?> </td>
                                             <td> <?php echo $prod['categoria'] ?> </td>
                                             <td> 
-                                                <a href="guardar_producto.php?id=<?php echo $prod['id'] ?>" class="btn btn-primary"> Editar </a>
-                                                <a href="" class="btn btn-danger"> Eliminar </a>
+                                                <a href="guardar_producto.php?id=<?php echo $prod['id'] ?>" class="btn btn-primary"> 
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                    Editar 
+                                                </a>
+                                                <a href="eliminar_producto.php?id=<?php echo $prod['id'] ?>" class="btn btn-danger"> 
+                                                    <i class="fa-solid fa-trash"></i>
+                                                    Eliminar 
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
