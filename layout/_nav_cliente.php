@@ -22,9 +22,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_URL ?>info.php">Info</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://davinci.edu.ar/">Visite Da Vinci</a>
-                    </li>
+                    <?php if( isset($_SESSION['usuario']) ): ?>
+                        <?php if($_SESSION['usuario']['rol'] == 'Administrador'): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo BASE_URL ?>listar_productos.php">Gestionar productos</a>
+                            </li>
+                        <?php endif ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL ?>Home.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL ?>logout.php">Cerrar sesión</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL ?>login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif ?>
                 </ul>
             </div>
         </div>

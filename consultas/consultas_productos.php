@@ -57,8 +57,6 @@ function getProductoById(PDO $conexion, $id)
 
     return $producto;
 
-    echo "El usuario se llama: {$producto['nombre']}";
-
 }
 
 

@@ -5,6 +5,13 @@ require_once('_conexion.php');
 require_once('consultas/consultas_productos.php');
 require_once('funciones/funciones_input.php');
 
+$usuario = $_SESSION['usuario'] ?? null;
+
+if(is_null($usuario) or $usuario['rol'] != 'Administrador')
+{
+    header('Location: logout.php');
+}
+
 if( isset($_GET['id']) ){
     //El usuario está intentando editar un producto.
     $producto = getProductoById($conexion, $_GET['id']);

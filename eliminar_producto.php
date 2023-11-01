@@ -1,5 +1,6 @@
 <?php
 
+require_once('conf/conf.php');
 require('_conexion.php');
 require('consultas/consultas_productos.php');
 

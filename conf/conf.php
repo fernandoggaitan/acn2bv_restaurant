@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 define('BASE_URL', 'http://localhost/acn2bv_restaurant/');
 
 define('DB_HOST', 'localhost');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2023 a las 04:12:20
+-- Tiempo de generación: 01-11-2023 a las 15:35:45
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -36,24 +36,20 @@ CREATE TABLE `productos` (
   `categoria` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `productos`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `descuento`, `categoria`) VALUES
-(1, 'Pizza con jamón y huevo', '...', 2000.00, 0.00, 'Pizzas'),
-(2, 'Pizza napolitana', '...', 2500.00, 0.00, 'Pizzas'),
-(3, 'Pizza caprese', '...', 2700.00, 500.00, 'Pizzas'),
-(4, 'Ensalada caesar', '...', 800.00, 0.00, 'Ensaladas'),
-(5, 'Ensalada rusa', '...', 500.00, 0.00, 'Ensaladas'),
-(6, 'Hamburguesa simple', '...', 900.00, 0.00, 'Hamburguesas'),
-(7, 'Hamburguesa completa', '...', 1700.00, 400.00, 'Hamburguesas'),
-(8, 'Coca cola', '...', 300.00, 0.00, 'Bebidas'),
-(9, 'Fanta', '...', 300.00, 20.00, 'Bebidas'),
-(10, 'Agua mineral', '...', 150.00, 0.00, 'Bebidas'),
-(11, 'Helado', '...', 550.00, 50.00, 'Postres'),
-(12, 'Flan casero', '...', 400.00, 0.00, 'Postres'),
-(13, 'Manaos', 'Gaseosa', 1000.00, 0.00, 'Bebidas');
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `contrasena` varchar(255) NOT NULL,
+  `archivo` varchar(255) NOT NULL,
+  `rol` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -66,6 +62,12 @@ ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -73,7 +75,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

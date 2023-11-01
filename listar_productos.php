@@ -5,6 +5,13 @@ require_once('conf/conf.php');
 require_once('_conexion.php');
 require_once('consultas/consultas_productos.php');
 
+$usuario = $_SESSION['usuario'] ?? null;
+
+if(is_null($usuario) or $usuario['rol'] != 'Administrador')
+{
+    header('Location: logout.php');
+}
+
 $productos = getProductos($conexion);
 
 ?>
