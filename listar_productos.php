@@ -78,7 +78,7 @@ $productos = getProductos($conexion);
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                     Editar 
                                                 </a>
-                                                <a href="eliminar_producto.php?id=<?php echo $prod['id'] ?>" class="btn btn-danger"> 
+                                                <a href="eliminar_producto.php?id=<?php echo $prod['id'] ?>" class="btn btn-danger btn-eliminar"> 
                                                     <i class="fa-solid fa-trash"></i>
                                                     Eliminar 
                                                 </a>
@@ -92,6 +92,7 @@ $productos = getProductos($conexion);
                     </div>
 
                 </div>
+                
             </main>
             
             <?php require('layout/_footer.php') ?>
@@ -100,6 +101,8 @@ $productos = getProductos($conexion);
     </div>
     
     <?php require('layout/_js.php') ?>
+
+    <script src="js/productos/listar_productos.js"></script>
 
 </body>
 
